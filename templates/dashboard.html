@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Code Review Assistant - Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
+        h1 { color: #333; }
+        table { border-collapse: collapse; width: 100%; background: white; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; font-size: 14px; }
+        th { background: #333; color: white; }
+        tr:nth-child(even) { background: #f9f9f9; }
+        .rule { font-weight: bold; color: #c0392b; }
+    </style>
+</head>
+<body>
+    <h1>AI Code Review Assistant — Scan History</h1>
+    <p>Showing the most recent 20 findings.</p>
+    <table>
+        <tr>
+            <th>Repo</th>
+            <th>PR</th>
+            <th>Rule</th>
+            <th>File</th>
+            <th>Line</th>
+            <th>Matched</th>
+            <th>Timestamp</th>
+        </tr>
+        {% for scan in scans %}
+        <tr>
+            <td>{{ scan[0] }}</td>
+            <td>#{{ scan[1] }}</td>
+            <td class="rule">{{ scan[2] }}</td>
+            <td>{{ scan[3] }}</td>
+            <td>{{ scan[4] }}</td>
+            <td><code>{{ scan[5] }}</code></td>
+            <td>{{ scan[6] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
