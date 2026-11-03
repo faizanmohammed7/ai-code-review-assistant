@@ -4,7 +4,7 @@ import requests
 from database import init_db, save_finding, get_recent_scans
 from flask import render_template
 from flask import Flask, request
-from github import GithubIntegration
+from github import GithubIntegration, AppAuth
 from scanner import scan_files
 from dotenv import load_dotenv
 
@@ -21,7 +21,8 @@ WEBHOOK_SECRET = os.getenv("GITHUB_WEBHOOK_SECRET")
 def get_installation_token(installation_id):
     with open(PRIVATE_KEY_PATH, "r") as f:
         private_key = f.read()
-    integration = GithubIntegration(int(APP_ID), private_key)
+    auth = AppAuth(int(APP_ID), private_key)
+    integration = GithubIntegration(auth=auth)
     token = integration.get_access_token(installation_id)
     return token.token
 
